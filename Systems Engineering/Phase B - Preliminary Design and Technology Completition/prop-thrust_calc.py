@@ -20,30 +20,30 @@ def calculateDrag(AoA, curSpeed):
         drag=(0.5)*1.225*curSpeed*curSpeed*Cd*1*0.2
         return drag
 rpmStep = 1 #seconds
-rpmRange = np.arange(0,22000,rpmStep).tolist() # 20 seconds to take off
+rpmRange = np.arange(0,12.6*1000,rpmStep).tolist() # 20 seconds to take off
 curSpeed=15.75
-propDia=7
-propPitch=3
+propDia=10
+propPitch=7
 drag=calculateDrag(0,curSpeed)
 table=[]
 for x in rpmRange:
     thrust = (4.392e-8)*x*(pow(propDia,3.5)/pow(propPitch,0.5))*((4.233e-4)*x*propPitch-curSpeed)-drag
     table.append(thrust)
     
-#plt.plot(rpmRange,table)
-#plt.xlabel('RPM')
-#plt.ylabel('Thrust (N)')
-#plt.title('RPM vs Thrust at 15.75 m/s airspeed')
+plt.plot(rpmRange,table)
+plt.xlabel('RPM')
+plt.ylabel('Thrust (N)')
+plt.title('RPM vs Thrust at 15.75 m/s airspeed')
 
-airspeed = np.arange(0,50,0.01).tolist()
+airspeed = np.arange(0,40,0.01).tolist()
 thrust_t=[]
-propRPM=12.6*2200
+propRPM=12.6*1000
 for x in airspeed:
     drag=calculateDrag(0,x)
     thrust = (4.392e-8)*propRPM*(pow(propDia,3.5)/pow(propPitch,0.5))*((4.233e-4)*propRPM*propPitch-x)
     thrust_t.append(thrust)
     
-plt.plot(airspeed,thrust_t)
-plt.xlabel('airspeed (m/s)')
-plt.ylabel('Thrust (N)')
-plt.title('airspeed vs Thrust')
+#plt.plot(airspeed,thrust_t)
+#plt.xlabel('airspeed (m/s)')
+#plt.ylabel('Thrust (N)')
+#plt.title('airspeed vs Thrust')
